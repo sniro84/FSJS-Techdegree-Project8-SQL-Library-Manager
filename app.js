@@ -13,7 +13,17 @@ db.authenticate()
 
 const app = express();
 
-app.get('/', (req,res) => res.send('INDEX'));
+// Pug view engine
+app.set('view engine', 'pug');
+
+// Body-parser
+app.use(bodyParser.urlencoded({extended: false}));
+
+// Set static content
+app.use(express.static('public'));
+
+app.get('/', (req,res) => res.redirect('/books'));
+app.use('/books' , require('./routes/books'));
 
 const PORT = process.env.PORT || 3000;
 
