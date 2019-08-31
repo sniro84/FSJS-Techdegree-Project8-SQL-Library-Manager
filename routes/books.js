@@ -24,9 +24,9 @@ router.post('/new', (req,res) => {
 
     // Validations of title and author
     if (!title)
-        errors.push({text: 'Please add a title'});
+        errors.push({text: 'Please add a Title'});
     if (!author)
-        errors.push({text: 'Please add an author'});
+        errors.push({text: 'Please add an Author'});
         
     // Check for errors
     if(errors.length > 0)
