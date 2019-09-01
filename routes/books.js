@@ -99,9 +99,17 @@ router.post('/:id', (req,res) => {
     {
         Book.findByPk(req.params.id)
             .then( (book) => book.update(req.body))
-            .then( () => res.redirect('/books'))
+            .then( () => res.redirect('/'))
             .catch( (err) => console.log(err) )
     }
+})
+
+// Delete book
+router.post('/:id/delete' , (req,res) => {
+    Book.findByPk(req.params.id)
+            .then( (book) => book.destroy())
+            .then( () => res.redirect('/'))
+            .catch( (err) => console.log(err) );
 })
 
 module.exports = router;
