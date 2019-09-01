@@ -1,9 +1,20 @@
+/******************************************
+Treehouse FSJS Techdegree:
+Project 8 - SQL Library Manager
+Name: Snir Holland
+Date: 01/09/2019
+******************************************/
+
+// Require express
 const express = require('express');
+
+// Router activation
 const router = express.Router();
-// const db = require('../config/database');
+
+// Require Book model
 const Book = require('../models/Book');
 
-// Books list
+// Books list get route
 router.get('/', (req,res) => Book.findAll()
     .then( (books) => {
         res.render('index' , {
@@ -12,12 +23,12 @@ router.get('/', (req,res) => Book.findAll()
     })
     .catch(err => console.log(err)));
 
-// Display new book form
+// New book get route
 router.get('/new' , (req,res) => {
     res.render('new-book');
 })
 
-// Add a new book
+// New book post route
 router.post('/new', (req,res) => {
     let { title, author, genre, year} = req.body;
     let errors = [];
@@ -53,7 +64,7 @@ router.post('/new', (req,res) => {
     }   
 })
 
-// Display update book form
+// Update book get route
 router.get('/:id' , (req,res) => Book.findAll()
         .then( (books) => {   
             let foundID = false;
@@ -68,12 +79,12 @@ router.get('/:id' , (req,res) => Book.findAll()
             if (foundID)
                 res.render('update-book' , {chosenBook}); 
             else
-                res.render('page-not-found');    
+                res.render('error');    
         })
         .catch((err) => console.log(err))
 )
 
-// Update book
+// Update book post route
 router.post('/:id', (req,res) => {
     let { title, author, genre, year} = req.body;
     let errors = [];
@@ -104,7 +115,7 @@ router.post('/:id', (req,res) => {
     }
 })
 
-// Delete book
+// Delete book post route
 router.post('/:id/delete' , (req,res) => {
     Book.findByPk(req.params.id)
             .then( (book) => book.destroy())
