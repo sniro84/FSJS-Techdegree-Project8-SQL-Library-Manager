@@ -1,0 +1,40 @@
+extends layout.pug
+block content
+    h1 Update Book
+    form(method='POST' action=`/books/${chosenBook.id}`)
+        if(errors)
+            h2.error Oooops!
+            ul.error
+            each error in errors
+                li.error=error.text  
+        p
+            label(for='title') Title
+            if(errors)
+                input#title(name='title' type='text' value=`${title}`)
+            else
+                input#title(name='title' type='text' value=`${chosenBook.title}`)
+        p
+            label(for='author') Author
+            if(errors)
+                input#author(name='author' type='text' value=`${author}`)
+            else
+                input#author(name='author' type='text' value=`${chosenBook.author}`)
+        p
+            label(for='genre') Genre
+            if(errors)
+                input#genre(name='genre' type='text' value=`${genre}`)
+            else
+                input#genre(name='genre' type='text' value=`${chosenBook.genre}`)
+        p
+            label(for='year') Year
+            if(errors)
+                input#year(name='year' type='text' value=`${year}`)
+            else
+                input#year(name='year' type='text' value=`${chosenBook.year}`)
+        p
+            input(type='submit' value='Update Book')
+    form(method='POST' action=`/books/${chosenBook.id}/delete` onsubmit="return confirm('Do you really want to delete this book?');")
+        p
+            a.button(href='/books/') Cancel
+        p
+            input(type='submit' value='Delete Book')
